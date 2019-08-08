@@ -11,7 +11,7 @@ import com.example.domain.Article;
 import com.example.repository.ArticleRepository;
 
 /**
- * 掲示板関連機能の処理の制御を行うコントローラ
+ * 掲示板関連機能の処理の制御を行うコントローラ.
  * @author juri.saito
  *
  */
@@ -23,7 +23,7 @@ public class ArticleController {
 	private ArticleRepository articleRepository;
 	
 	/**
-	 * 掲示板画面を表示する
+	 * 掲示板画面を表示する.
 	 * @return 掲示板画面
 	 */
 	@RequestMapping("/")
@@ -32,7 +32,7 @@ public class ArticleController {
 	}
 
 	/**
-	 * 記事一覧を出力する
+	 * 記事一覧を出力する.
 	 * @param model　リクエストスコープ
 	 * @return　掲示板画面
 	 */

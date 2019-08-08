@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.example.domain.Article;
 
 /**
- * articlesテーブルを操作するリポジトリ
+ * articlesテーブルを操作するリポジトリ.
  * @author juri.saito
  *
  */
@@ -21,7 +21,7 @@ public class ArticleRepository {
 	private  NamedParameterJdbcTemplate template;
 	
 	/**
-	 * Articleオブジェクトを生成するローマッパー
+	 * Articleオブジェクトを生成するローマッパー.
 	 */
 	private static final RowMapper<Article> ARTICLE_ROW_MAPPER = (rs, i) -> {
 		Article article = new Article();
@@ -32,7 +32,7 @@ public class ArticleRepository {
 	};
 	
 	/**
-	 * 記事一覧情報を投稿順で取得する
+	 * 記事一覧情報を投稿順で取得する.
 	 * @return 記事一覧
 	 */
 	public List<Article> findAll(){
