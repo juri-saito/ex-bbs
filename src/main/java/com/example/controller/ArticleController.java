@@ -2,12 +2,15 @@ package com.example.controller;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Article;
+import com.example.form.ArticleForm;
 import com.example.repository.ArticleRepository;
 
 /**
@@ -23,23 +26,48 @@ public class ArticleController {
 	private ArticleRepository articleRepository;
 	
 	/**
-	 * 掲示板画面を表示する.
-	 * @return 掲示板画面
+	 * 記事登録時に使用するフォームオブジェクトをModelオブジェクト（リクエストスコープ）に格納される.
+	 * @return　記事登録時に使用するフォームオブジェクト
 	 */
-	@RequestMapping("/")
-	public String index() {
-		return "bbs";
+	@ModelAttribute
+	public ArticleForm setUpArticleForm() {
+		ArticleForm articleForm = new ArticleForm();
+		return articleForm;
 	}
+	
+	
+//	/**
+//	 * 掲示板画面を表示する.
+//	 * @return 掲示板画面
+//	 */
+//	@RequestMapping("/")
+//	public String index() {
+//		return "bbs";
+//	}
 
 	/**
-	 * 記事一覧を出力する.
+	 * 掲示板画面を表示する.
 	 * @param model　リクエストスコープ
 	 * @return　掲示板画面
 	 */
-	@RequestMapping("/showArticle")
-	public String showArticle(Model model) {
+	@RequestMapping("/")
+	public String index(Model model) {
 		List<Article> articleList = articleRepository.findAll();
 		model.addAttribute("articleList", articleList);
 		return "bbs";
+	}
+	
+	/**
+	 * 記事を投稿する.
+	 * @param form 記事投稿時に使用するフォームオブジェクト
+	 * @return　掲示板画面
+	 */
+	@RequestMapping("/insert")
+	public String insertArticle(ArticleForm form) {
+		Article article = new Article();
+		BeanUtils.copyProperties(form, article);
+		
+		articleRepository.insert(article);
+		return "redirect:/bbs/";
 	}
 }

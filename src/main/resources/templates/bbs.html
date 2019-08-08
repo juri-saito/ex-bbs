@@ -6,17 +6,16 @@
 </head>
 <body>
 <h1>掲示板アプリケーション</h1>
-<form action="bbs.html" th:action="@{/bbs/showArticle}" method="post">
+<form action="bbs.html" th:action="@{/bbs/insert}" method="post">
 投稿者：<input type="text" name="name"><br>
 投稿内容：<input type="text" name="content"><br>
 <button>記事投稿</button>
+</form>
+<div th:each="article:${articleList}">
 <hr>
-<span th:each="article:${articleList}">
 投稿ID:<span th:text="${article.id}">dummy</span><br>
 投稿者名:<span th:text="${article.name}">dummy</span><br>
 投稿内容:<span th:text="${article.content}">dummy</span><br>
-<hr>
-</span>
-</form>
+</div>
 </body>
 </html>

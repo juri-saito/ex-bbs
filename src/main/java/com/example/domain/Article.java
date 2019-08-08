@@ -2,6 +2,11 @@ package com.example.domain;
 
 import java.util.List;
 
+/**
+ * 記事情報を表すドメイン.
+ * @author juri.saito
+ *
+ */
 public class Article {
 
 	/** ID */
