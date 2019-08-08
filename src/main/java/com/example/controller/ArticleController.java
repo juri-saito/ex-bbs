@@ -6,7 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Article;
@@ -29,12 +29,12 @@ public class ArticleController {
 	 * 記事登録時に使用するフォームオブジェクトをModelオブジェクト（リクエストスコープ）に格納される.
 	 * @return　記事登録時に使用するフォームオブジェクト
 	 */
-	@ModelAttribute
-	public ArticleForm setUpArticleForm() {
-		ArticleForm articleForm = new ArticleForm();
-		return articleForm;
-	}
-	
+//	@ModelAttribute
+//	public ArticleForm setUpArticleForm() {
+//		ArticleForm articleForm = new ArticleForm();
+//		return articleForm;
+//	}
+//	
 	
 //	/**
 //	 * 掲示板画面を表示する.
@@ -70,4 +70,5 @@ public class ArticleController {
 		articleRepository.insert(article);
 		return "redirect:/bbs/";
 	}
+	
 }
