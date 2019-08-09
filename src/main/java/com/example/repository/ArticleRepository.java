@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
@@ -53,7 +54,13 @@ public class ArticleRepository {
 		template.update(sql, param);
 	}
 	
-	public void delete() {
-		String sql = "";
+	/**
+	 * 記事を削除する.
+	 * @param articleId　記事ID
+	 */
+	public void delete(Integer articleId) {
+		String sql = "DELETE FROM articles WHERE id=:articleId;";
+		SqlParameterSource param = new MapSqlParameterSource("articleId", articleId);
+		template.update(sql, param);
 	}
 }

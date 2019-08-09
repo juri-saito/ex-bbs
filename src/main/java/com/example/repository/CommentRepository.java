@@ -14,7 +14,7 @@ import com.example.domain.Comment;
 
 
 /**
- * commentsテーブルを操作するリポジトリ
+ * commentsテーブルを操作するリポジトリ.
  * @author juri.saito
  *
  */
@@ -57,6 +57,16 @@ public class CommentRepository {
 		System.out.println(comment);
 		String sql = "INSERT INTO comments (article_id, name, content) VALUES (:articleId, :name, :content);";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(comment);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * コメントを削除する.
+	 * @param articleId　記事ID
+	 */
+	public void delete(Integer articleId) {
+		String sql = "DELETE FROM comments WHERE article_id=:articleId;";
+		SqlParameterSource param = new MapSqlParameterSource("articleId", articleId);
 		template.update(sql, param);
 	}
 }

@@ -81,7 +81,7 @@ public class ArticleController {
 	}
 	
 	/**
-	 * コメントを投稿する
+	 * コメントを投稿する.
 	 * @param form　コメント投稿時に使用するフォームオブジェクト
 	 * @return　掲示板画面
 	 */
@@ -95,6 +95,15 @@ public class ArticleController {
 		return "redirect:/bbs/";
 	}
 	
-	
-	
+	/**
+	 * 記事とコメントを削除する.
+	 * @param articleId 記事ID
+	 * @return　掲示板画面
+	 */
+	@RequestMapping("/delete-article")
+	public String deleteArticle(int articleId) {
+		commentRepository.delete(articleId);
+		articleRepository.delete(articleId);
+		return "redirect:/bbs/";
+	}
 }

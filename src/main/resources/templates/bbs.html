@@ -16,7 +16,7 @@
 	投稿ID:<span th:text="${article.id}">dummy</span><br>
 	投稿者名:<span th:text="${article.name}">dummy</span><br>
 	投稿内容:<span th:text="${article.content}">dummy</span><br>
-	<form action="bbs.html" th:action="@{/bbs/insert-comment}" method="post">
+	<form action="bbs.html" th:action="@{/bbs/delete-article}" method="post">
 	<input type="hidden" name="articleId" th:value="${article.id}">
 	<button>記事削除</button>
 	</form>
