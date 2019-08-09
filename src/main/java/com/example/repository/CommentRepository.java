@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.Comment;
 
+
 /**
  * commentsテーブルを操作するリポジトリ
  * @author juri.saito
@@ -35,13 +36,14 @@ public class CommentRepository {
 	};
 	
 	/**
-	 * コメント一覧情報をコメント投稿順で取得する.
+	 * 記事id毎にコメント一覧情報をコメント投稿順で取得する.
 	 * @return コメント一覧
 	 */
 	public List<Comment> findByArticleId(int articleId){
-		String sql = "SELECT id, name, contents FROM comment WHERE article_id=:articleId ORDER BY id DESC;";
+		String sql = "SELECT id, name, content, article_id FROM comments WHERE article_id=:articleId ORDER BY id DESC;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("articleId", articleId);
 		List<Comment> commentList = template.query(sql, param, COMMENT_ROW_MAPPER);
+		
 		return commentList;
 	}
 }

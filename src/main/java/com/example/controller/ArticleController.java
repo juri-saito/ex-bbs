@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Article;
+import com.example.domain.Comment;
 import com.example.form.ArticleForm;
 import com.example.repository.ArticleRepository;
+import com.example.repository.CommentRepository;
 
 /**
  * 掲示板関連機能の処理の制御を行うコントローラ.
@@ -24,6 +26,9 @@ public class ArticleController {
 	
 	@Autowired
 	private ArticleRepository articleRepository;
+	
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	/**
 	 * 記事登録時に使用するフォームオブジェクトをModelオブジェクト（リクエストスコープ）に格納される.
@@ -52,8 +57,18 @@ public class ArticleController {
 	 */
 	@RequestMapping("/")
 	public String index(Model model) {
-		List<Article> articleList = articleRepository.findAll();
+		
+		//全記事を取得してリクエストスコープに格納
+		List<Article> articleList = articleRepository.findAll(); 
 		model.addAttribute("articleList", articleList);
+		
+		//記事一つ一つの全コメントを取得
+		for(Article article : articleList) {
+			int articleId = article.getId();
+			List<Comment> commentList = commentRepository.findByArticleId(articleId); 
+			article.setCommentList(commentList);
+		}
+		
 		return "bbs";
 	}
 	
@@ -70,5 +85,7 @@ public class ArticleController {
 		articleRepository.insert(article);
 		return "redirect:/bbs/";
 	}
+	
+	
 	
 }
