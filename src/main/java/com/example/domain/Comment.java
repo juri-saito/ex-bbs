@@ -1,5 +1,10 @@
 	package com.example.domain;
 
+	/**
+	 * コメント情報を表すドメイン
+	 * @author juri.saito
+	 *
+	 */
 	public class Comment {
 
 		/** コメントID */
@@ -12,13 +17,14 @@
 		private String content;
 		
 		/** article_id */
-		private Integer articled;
+		private Integer articleId;
+		
 		
 		
 
 		@Override
 		public String toString() {
-			return "commit [id=" + id + ", name=" + name + ", content=" + content + ", articled=" + articled + "]";
+			return "Comment [id=" + id + ", name=" + name + ", content=" + content + ", articleId=" + articleId + "]";
 		}
 
 		public Integer getId() {
@@ -45,14 +51,14 @@
 			this.content = content;
 		}
 
-		public Integer getArticled() {
-			return articled;
+		public Integer getArticleId() {
+			return articleId;
 		}
 
-		public void setArticled(Integer articled) {
-			this.articled = articled;
+		public void setArticleId(Integer articleId) {
+			this.articleId = articleId;
 		}
 		
-		
+			
 	}
 

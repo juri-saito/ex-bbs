@@ -13,16 +13,25 @@
 </form>
 <div th:each="article:${articleList}">
 <hr>
-投稿ID:<span th:text="${article.id}">dummy</span><br>
-投稿者名:<span th:text="${article.name}">dummy</span><br>
-投稿内容:<span th:text="${article.content}">dummy</span><br>
-
-<div th:each="comment:${article.commentList}">
-コメントID:<span th:text="${comment.id}">dummy</span><br>
-コメント者名:<span th:text="${comment.name}">dummy</span><br>
-コメント内容:<span th:text="${comment.content}">dummy</span><br>
-</div>
-
+	投稿ID:<span th:text="${article.id}">dummy</span><br>
+	投稿者名:<span th:text="${article.name}">dummy</span><br>
+	投稿内容:<span th:text="${article.content}">dummy</span><br>
+	<form action="bbs.html" th:action="@{/bbs/insert-comment}" method="post">
+	<input type="hidden" name="articleId" th:value="${article.id}">
+	<button>記事削除</button>
+	</form>
+	
+	<div th:each="comment:${article.commentList}">
+		コメントID:<span th:text="${comment.id}">dummy</span><br>
+		コメント者名:<span th:text="${comment.name}">dummy</span><br>
+		コメント内容:<span th:text="${comment.content}">dummy</span><br>
+	</div>
+	<form action="bbs.html" th:action="@{/bbs/insert-comment}" method="post">
+		名前：<input type="text" name="name"><br>
+		コメント：<input type="text" name="content"><br>
+		<input type="hidden" name="articleId" th:value="${article.id}">
+		<button type="submit">コメント投稿</button>
+	</form>
 </div>
 
 </body>

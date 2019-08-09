@@ -6,12 +6,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Article;
 import com.example.domain.Comment;
 import com.example.form.ArticleForm;
+import com.example.form.CommentForm;
 import com.example.repository.ArticleRepository;
 import com.example.repository.CommentRepository;
 
@@ -31,24 +33,15 @@ public class ArticleController {
 	private CommentRepository commentRepository;
 	
 	/**
-	 * 記事登録時に使用するフォームオブジェクトをModelオブジェクト（リクエストスコープ）に格納される.
-	 * @return　記事登録時に使用するフォームオブジェクト
+	 * コメント登録時に使用するフォームオブジェクトをModelオブジェクト（リクエストスコープ）に格納する.
+	 * @return　コメント登録時に使用するフォームオブジェクト
 	 */
-//	@ModelAttribute
-//	public ArticleForm setUpArticleForm() {
-//		ArticleForm articleForm = new ArticleForm();
-//		return articleForm;
-//	}
-//	
+	@ModelAttribute
+	public CommentForm setUpCommentForm() {
+		CommentForm commentForm = new CommentForm();
+		return commentForm;
+	}
 	
-//	/**
-//	 * 掲示板画面を表示する.
-//	 * @return 掲示板画面
-//	 */
-//	@RequestMapping("/")
-//	public String index() {
-//		return "bbs";
-//	}
 
 	/**
 	 * 掲示板画面を表示する.
@@ -60,7 +53,6 @@ public class ArticleController {
 		
 		//全記事を取得してリクエストスコープに格納
 		List<Article> articleList = articleRepository.findAll(); 
-		model.addAttribute("articleList", articleList);
 		
 		//記事一つ一つの全コメントを取得
 		for(Article article : articleList) {
@@ -68,6 +60,8 @@ public class ArticleController {
 			List<Comment> commentList = commentRepository.findByArticleId(articleId); 
 			article.setCommentList(commentList);
 		}
+		
+		model.addAttribute("articleList", articleList);
 		
 		return "bbs";
 	}
@@ -83,6 +77,21 @@ public class ArticleController {
 		BeanUtils.copyProperties(form, article);
 		
 		articleRepository.insert(article);
+		return "redirect:/bbs/";
+	}
+	
+	/**
+	 * コメントを投稿する
+	 * @param form　コメント投稿時に使用するフォームオブジェクト
+	 * @return　掲示板画面
+	 */
+	@RequestMapping("/insert-comment")
+	public String  insertComment(CommentForm form, Model model) {
+		Comment comment = new Comment();
+		BeanUtils.copyProperties(form, comment);
+		comment.setArticleId(form.getIntArticleId());
+		System.out.println(comment);
+		commentRepository.insert(comment);
 		return "redirect:/bbs/";
 	}
 	

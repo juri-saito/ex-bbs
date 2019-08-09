@@ -52,4 +52,8 @@ public class ArticleRepository {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(article);
 		template.update(sql, param);
 	}
+	
+	public void delete() {
+		String sql = "";
+	}
 }
